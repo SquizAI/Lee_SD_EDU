@@ -4,9 +4,7 @@ import {
   Heading, 
   Text, 
   Badge, 
-  Flex,
-  Icon,
-  Tooltip
+  Flex
 } from '@chakra-ui/react';
 import {
   AccordionItem,
@@ -29,55 +27,86 @@ const getDifficultyProps = (difficulty: DifficultyLevel) => {
     case 'easy':
       return { 
         icon: FaRegLightbulb, 
-        color: '#10b981',
+        color: 'var(--success)',
+        bgColor: 'rgba(74, 222, 128, 0.2)',
         label: 'Beginner'
       };
     case 'medium':
       return { 
         icon: FaChalkboardTeacher, 
-        color: '#f59e0b',
+        color: 'var(--warning)',
+        bgColor: 'rgba(250, 204, 21, 0.2)',
         label: 'Intermediate'
       };
     case 'hard':
       return { 
         icon: FaRocket, 
-        color: '#ef4444',
+        color: 'var(--error)',
+        bgColor: 'rgba(248, 113, 113, 0.2)',
         label: 'Advanced'
       };
     default:
       return { 
         icon: FaChalkboardTeacher, 
-        color: '#3a86ff',
+        color: 'var(--info)',
+        bgColor: 'rgba(96, 165, 250, 0.2)',
         label: 'All Levels'
       };
   }
 };
 
-const CourseModule: React.FC<CourseModuleProps> = ({ module, isActive }) => {
-  const { icon, color, label } = getDifficultyProps(module.difficulty);
+const CourseModule: React.FC<CourseModuleProps> = ({ module }) => {
+  const { color, bgColor, label } = getDifficultyProps(module.difficulty);
   
   return (
-    <AccordionItem mb={2} className="module-card">
+    <AccordionItem 
+      mb={4} 
+      className="module-card"
+      border="none"
+      borderRadius="md"
+      overflow="hidden"
+      bg="var(--accent-primary-alpha)"
+      _expanded={{ boxShadow: 'var(--shadow-md)' }}
+    >
       <h2>
-        <AccordionButton className="module-header">
+        <AccordionButton 
+          className="module-header" 
+          py={4} 
+          px={5} 
+          bg="var(--accent-primary-alpha)" 
+          _hover={{ bg: 'var(--accent-primary-alpha)' }}
+        >
           <Box flex="1" textAlign="left">
             <Flex align="center">
-              <Heading size="sm">{module.title}</Heading>
-              <Tooltip label={`Difficulty: ${label}`}>
-                <span className={`difficulty-indicator ${module.difficulty}`} style={{ color }}>
-                  <Icon as={icon} />
-                  <Text fontSize="xs">{label}</Text>
-                </span>
-              </Tooltip>
+              <Heading size="md" color="var(--text-primary)">{module.title}</Heading>
+              <Badge 
+                ml={3} 
+                px={2} 
+                py={1} 
+                borderRadius="full"
+                bg={bgColor}
+                color={color}
+                fontSize="xs"
+              >
+                {label}
+              </Badge>
             </Flex>
           </Box>
           <Flex align="center">
-            <Badge colorScheme={isActive ? "blue" : "gray"} mr={2}>{module.duration}</Badge>
+            <Badge 
+              bg="var(--background-card)" 
+              color="var(--text-secondary)"
+              px={2} 
+              py={1}
+              mr={3}
+            >
+              {module.duration}
+            </Badge>
             <AccordionIcon />
           </Flex>
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4}>
+      <AccordionPanel pb={4} pt={2} px={5} bg="var(--background-card)">
         <Box mb={4}>
           <Text>{module.description}</Text>
         </Box>
@@ -88,19 +117,21 @@ const CourseModule: React.FC<CourseModuleProps> = ({ module, isActive }) => {
               to={`/lessons/${lesson.id}`}
             >
               <Box 
-                p={2.5} 
-                mb={1.5} 
+                p={3} 
+                mb={2} 
                 borderWidth="1px" 
                 borderRadius="md"
-                _hover={{ bg: "gray.50", transform: "translateX(3px)" }}
+                bg="var(--background-secondary)"
+                borderColor="var(--border-light)"
+                _hover={{ bg: "var(--background-secondary)", borderColor: "var(--accent-primary-alpha)", transform: "translateX(3px)" }}
                 transition="all 0.2s"
                 className="lesson-item"
               >
                 <Flex justify="space-between" align="center">
                   <Box>
-                    <Text fontWeight="bold">{index + 1}. {lesson.title}</Text>
+                    <Text fontWeight="medium" color="var(--text-primary)" fontSize="sm">{index + 1}. {lesson.title}</Text>
                   </Box>
-                  <Badge colorScheme="green">{lesson.duration}</Badge>
+                  <Badge bg="var(--accent-primary-alpha)" color="var(--accent-secondary)" fontSize="xs">{lesson.duration}</Badge>
                 </Flex>
               </Box>
             </Link>

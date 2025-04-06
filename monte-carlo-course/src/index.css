@@ -1,38 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Book Typography */
-  font-family: 'Libre Baskerville', Georgia, serif;
-  line-height: 1.8;
+  /* Modern Dashboard Typography */
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
   font-weight: 400;
-
-  /* Color System */
-  /* Book-inspired Theme - Warm sepia tones with paper textures */
-  --accent-primary: #8B5A2B; /* Classic leather brown */
-  --accent-secondary: #A67C52; /* Lighter leather */
-  --accent-tertiary: #614C34; /* Dark wood */
-  --background-primary: #F8F5ED; /* Cream paper */
-  --background-secondary: #EFE8D8; /* Aged paper */
-  --text-primary: #3A2E24; /* Dark sepia */
-  --text-secondary: #5A4A3F; /* Medium sepia */
-  --text-muted: #7A6C60; /* Light sepia */
-  --success: #4D6E4F; /* Forest green */
-  --warning: #B98149; /* Amber */
-  --error: #9C4A41; /* Vintage red */
-  --border-light: rgba(166, 145, 119, 0.3);
-  --shadow-sm: 0 2px 5px rgba(58, 46, 36, 0.05);
-  --shadow-md: 0 4px 10px rgba(58, 46, 36, 0.08);
-  --shadow-lg: 0 8px 16px rgba(58, 46, 36, 0.1);
-  --shadow-book: 0 1px 1px rgba(0,0,0,0.1), 
-              0 2px 2px rgba(0,0,0,0.1), 
-              0 4px 4px rgba(0,0,0,0.1), 
-              0 6px 8px rgba(0,0,0,0.1);
-  --glass-effect: rgba(248, 245, 237, 0.9);
-  --glass-shadow: 0 8px 32px rgba(58, 46, 36, 0.1);
-  --blur-strength: 8px;
-  --border-radius-sm: 4px;
-  --border-radius-md: 6px;
-  --border-radius-lg: 8px;
+  
+  /* These variables have been moved to App.css */
+  /* Import App.css for all color and styling variables */
+  
+  /* Base settings */
   --transition-speed: 0.3s;
   --page-flip-speed: 0.5s;
 

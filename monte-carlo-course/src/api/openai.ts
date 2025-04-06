@@ -1,15 +1,18 @@
 import axios from 'axios';
 
+// For local development only - API key is not exposed in production
+const isDevelopment = import.meta.env.MODE === 'development';
 const API_URL = import.meta.env.VITE_API_URL || 'https://api.openai.com/v1';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-const openaiClient = axios.create({
+// Use the API client only in development mode
+const openaiClient = isDevelopment ? axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${API_KEY}`
   }
-});
+}) : null;
 
 export type ChatMessage = {
   role: 'system' | 'user' | 'assistant';
@@ -89,11 +92,37 @@ const responseSchema = {
   required: ['response_type', 'content']
 };
 
+// Mock data for production deployment
+const mockResponses: Record<string, TutorResponse> = {
+  'default': {
+    response_type: 'concept_explanation',
+    content: {
+      title: 'Monte Carlo Methods',
+      summary: 'Monte Carlo methods are computational algorithms that use repeated random sampling to obtain numerical results.',
+      detailed_explanation: 'Monte Carlo methods are a broad class of computational algorithms that rely on repeated random sampling to obtain numerical results. The core idea is to use randomness to solve problems that might be deterministic in principle.',
+      examples: ['Monte Carlo integration', 'Monte Carlo simulation for risk assessment', 'Markov Chain Monte Carlo for Bayesian inference'],
+      related_concepts: ['Random sampling', 'Law of large numbers', 'Probabilistic approximation']
+    }
+  },
+  'hello': {
+    response_type: 'general_answer',
+    content: 'Hello! I\'m your Monte Carlo methods tutor. How can I help you today? Would you like to learn about basic concepts, applications, or specific algorithms?'
+  }
+};
+
 export const getChatCompletion = async (
   messages: ChatMessage[],
   systemPrompt: string = 'You are a helpful Monte Carlo algorithms tutor.'
 ): Promise<TutorResponse> => {
   try {
+    // In production, return mock data
+    if (!isDevelopment || !openaiClient) {
+      const userMessage = messages.find(m => m.role === 'user')?.content.toLowerCase().trim() || '';
+      const mockResponse = mockResponses[userMessage] || mockResponses['default'];
+      return new Promise(resolve => setTimeout(() => resolve(mockResponse), 500));
+    }
+    
+    // In development, use the OpenAI API
     // Add system message if not already present
     if (!messages.some(m => m.role === 'system')) {
       messages = [{ role: 'system', content: systemPrompt }, ...messages];

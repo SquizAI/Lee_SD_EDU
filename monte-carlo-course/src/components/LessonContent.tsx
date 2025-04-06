@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Heading, Text, Button, Flex, Divider, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, Flex, Divider, Badge, Icon } from '@chakra-ui/react';
 import { Lesson } from '../utils/courseData';
 import { marked } from 'marked';
 import Chat from './Chat';
+import { FiArrowRight, FiArrowLeft, FiMessageCircle } from 'react-icons/fi';
 
 interface LessonContentProps {
   lesson: Lesson;
@@ -20,8 +21,6 @@ const LessonContent: React.FC<LessonContentProps> = ({
   hasPrevious 
 }) => {
   const [showChat, setShowChat] = useState(false);
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   // Configure marked.js to render code blocks with syntax highlighting
   marked.setOptions({
@@ -35,10 +34,11 @@ const LessonContent: React.FC<LessonContentProps> = ({
     <Box 
       p={6} 
       borderWidth="1px" 
-      borderRadius="lg" 
-      bg={bgColor}
-      borderColor={borderColor}
-      boxShadow="md"
+      borderRadius="md" 
+      bg="var(--background-card)" 
+      borderColor="var(--border-light)"
+      boxShadow="sm"
+      className="lesson-container"
     >
       <Flex justify="space-between" align="center" mb={4}>
         <Heading as="h1" size="xl">{lesson.title}</Heading>
@@ -50,7 +50,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
       <Box 
         className="lesson-content" 
         dangerouslySetInnerHTML={{ __html: renderedContent }} 
-        css={{
+        sx={{
           'h1': { fontSize: '2xl', fontWeight: 'bold', marginTop: '1.5rem', marginBottom: '0.75rem' },
           'h2': { fontSize: 'xl', fontWeight: 'bold', marginTop: '1.25rem', marginBottom: '0.5rem' },
           'ul, ol': { paddingLeft: '1.5rem', margin: '0.75rem 0' },
@@ -59,17 +59,19 @@ const LessonContent: React.FC<LessonContentProps> = ({
           'pre': { 
             padding: '1rem', 
             borderRadius: '0.375rem', 
-            backgroundColor: '#1A202C', 
-            color: 'white', 
+            backgroundColor: 'var(--background-secondary)', 
+            color: 'var(--text-primary)', 
             overflow: 'auto',
             fontSize: '0.875rem',
-            margin: '1rem 0'
+            margin: '1rem 0',
+            boxShadow: 'var(--shadow-sm)'
           },
           'code': {
             fontFamily: 'monospace',
             padding: '0.125rem',
             borderRadius: '0.125rem',
-            backgroundColor: '#EDF2F7',
+            backgroundColor: 'var(--background-primary)',
+            color: 'var(--accent-secondary)',
             fontSize: '0.9em'
           },
           'pre code': {
@@ -83,25 +85,36 @@ const LessonContent: React.FC<LessonContentProps> = ({
       
       <Flex justify="space-between" align="center" mt={6}>
         <Button 
-          colorScheme="gray" 
+          leftIcon={<Icon as={FiArrowLeft} />}
+          bg={hasPrevious ? 'var(--background-secondary)' : 'transparent'}
+          color="var(--text-primary)"
+          border="1px solid var(--border-light)"
           onClick={onPrevious} 
           isDisabled={!hasPrevious}
+          _hover={{ bg: 'var(--background-primary)' }}
         >
           Previous
         </Button>
         
         <Button 
-          colorScheme="blue" 
-          variant={showChat ? "solid" : "outline"}
+          leftIcon={<Icon as={FiMessageCircle} />}
+          bg={showChat ? 'var(--accent-primary)' : 'transparent'} 
+          color={showChat ? 'white' : 'var(--text-primary)'}
+          border="1px solid var(--border-light)"
           onClick={() => setShowChat(!showChat)}
+          _hover={{ bg: showChat ? 'var(--accent-tertiary)' : 'var(--background-primary)' }}
         >
           {showChat ? "Hide Tutor" : "Ask Tutor"}
         </Button>
         
         <Button 
-          colorScheme="blue" 
+          rightIcon={<Icon as={FiArrowRight} />}
+          bg={hasNext ? 'var(--accent-primary)' : 'transparent'}
+          color={hasNext ? 'white' : 'var(--text-primary)'}
+          border="1px solid var(--border-light)"
           onClick={onNext} 
           isDisabled={!hasNext}
+          _hover={{ bg: hasNext ? 'var(--accent-tertiary)' : 'var(--background-primary)' }}
         >
           Next
         </Button>
@@ -119,8 +132,8 @@ const LessonContent: React.FC<LessonContentProps> = ({
           p={4} 
           borderWidth="1px" 
           borderRadius="md" 
-          borderColor="green.200" 
-          bg="green.50"
+          borderColor="var(--success)" 
+          bg="rgba(74, 222, 128, 0.1)"
           direction="column"
           align="center"
         >
@@ -129,7 +142,9 @@ const LessonContent: React.FC<LessonContentProps> = ({
           {!showChat && (
             <Button 
               mt={2} 
-              colorScheme="green" 
+              bg="var(--success)" 
+              color="white"
+              _hover={{ bg: 'var(--success)', opacity: 0.8 }}
               onClick={() => setShowChat(true)}
             >
               Open Tutor

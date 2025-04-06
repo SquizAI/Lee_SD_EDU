@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Container, Flex, Button, Text, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Box, Flex, Button, Text, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { ChevronRightIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { courseModules } from '../utils/courseData';
 import LessonContent from '../components/LessonContent';
@@ -81,24 +81,32 @@ const LessonPage: React.FC = () => {
 
   if (!currentLesson || !currentModule) {
     return (
-      <Container maxW="container.lg" py={8}>
-        <Text>Lesson not found</Text>
+      <Box py={6}>
+        <Text fontSize="lg" color="var(--text-primary)">Lesson not found</Text>
         <Link to="/">
-          <Button leftIcon={<ArrowBackIcon />} mt={4}>
+          <Button 
+            leftIcon={<ArrowBackIcon />} 
+            mt={4}
+            bg="var(--background-secondary)"
+            color="var(--text-primary)"
+            border="1px solid var(--border-light)"
+            _hover={{ bg: "var(--background-primary)" }}
+          >
             Return to Course Home
           </Button>
         </Link>
-      </Container>
+      </Box>
     );
   }
 
   return (
-    <Container maxW="container.lg" py={8}>
-      <Flex direction="column">
+    <Box py={6}>
+      <Flex direction="column" width="100%">
         <Breadcrumb 
-          separator={<ChevronRightIcon color="gray.500" />} 
+          separator={<ChevronRightIcon color="var(--text-muted)" />} 
           mb={6}
           fontSize="sm"
+          color="var(--text-secondary)"
         >
           <BreadcrumbItem>
             <BreadcrumbLink as={Link} to="/">Home</BreadcrumbLink>
@@ -121,13 +129,19 @@ const LessonPage: React.FC = () => {
 
         <Flex justify="center" mt={8}>
           <Link to="/">
-            <Button leftIcon={<ArrowBackIcon />} variant="outline">
+            <Button 
+              leftIcon={<ArrowBackIcon />} 
+              bg="var(--background-secondary)"
+              color="var(--text-primary)"
+              border="1px solid var(--border-light)"
+              _hover={{ bg: "var(--background-primary)" }}
+            >
               Return to Course Home
             </Button>
           </Link>
         </Flex>
       </Flex>
-    </Container>
+    </Box>
   );
 };
 
