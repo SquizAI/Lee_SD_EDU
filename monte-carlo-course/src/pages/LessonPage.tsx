@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Box, Container, Flex, Button, Text, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Icon } from '@chakra-ui/react';
+import { Container, Flex, Button, Text, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { ChevronRightIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { courseModules } from '../utils/courseData';
 import LessonContent from '../components/LessonContent';
