@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  /* Book Typography */
+  font-family: 'Libre Baskerville', Georgia, serif;
+  line-height: 1.8;
+  font-weight: 400;
+
+  /* Color System */
+  /* Book-inspired Theme - Warm sepia tones with paper textures */
+  --accent-primary: #8B5A2B; /* Classic leather brown */
+  --accent-secondary: #A67C52; /* Lighter leather */
+  --accent-tertiary: #614C34; /* Dark wood */
+  --background-primary: #F8F5ED; /* Cream paper */
+  --background-secondary: #EFE8D8; /* Aged paper */
+  --text-primary: #3A2E24; /* Dark sepia */
+  --text-secondary: #5A4A3F; /* Medium sepia */
+  --text-muted: #7A6C60; /* Light sepia */
+  --success: #4D6E4F; /* Forest green */
+  --warning: #B98149; /* Amber */
+  --error: #9C4A41; /* Vintage red */
+  --border-light: rgba(166, 145, 119, 0.3);
+  --shadow-sm: 0 2px 5px rgba(58, 46, 36, 0.05);
+  --shadow-md: 0 4px 10px rgba(58, 46, 36, 0.08);
+  --shadow-lg: 0 8px 16px rgba(58, 46, 36, 0.1);
+  --shadow-book: 0 1px 1px rgba(0,0,0,0.1), 
+              0 2px 2px rgba(0,0,0,0.1), 
+              0 4px 4px rgba(0,0,0,0.1), 
+              0 6px 8px rgba(0,0,0,0.1);
+  --glass-effect: rgba(248, 245, 237, 0.9);
+  --glass-shadow: 0 8px 32px rgba(58, 46, 36, 0.1);
+  --blur-strength: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  --transition-speed: 0.3s;
+  --page-flip-speed: 0.5s;
+
+  color-scheme: light dark;
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-decoration: inherit;
+  position: relative;
+  transition: all var(--transition-speed) ease;
+  border-bottom: 1px dotted var(--accent-primary);
+  padding-bottom: 2px;
+}
+
+a:hover {
+  color: var(--accent-tertiary);
+  border-bottom: 1px solid var(--accent-tertiary);
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width var(--transition-speed) ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+h1 {
+  font-size: 3.2em;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 2.4em;
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5em;
+}
+
+button {
+  border-radius: var(--border-radius-md);
+  border: 1px solid transparent;
+  padding: 0.7em 1.5em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 3px solid rgba(67, 97, 238, 0.3);
+  outline-offset: 2px;
+}
+
+/* Glass Morphism Effects */
+.glass-card {
+  background: var(--glass-effect);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--glass-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.bento-item {
+  border-radius: var(--border-radius-md);
+  padding: 25px;
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.bento-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Floating Labels */
+.float-label {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.float-label input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-sm);
+  font-size: 16px;
+  transition: border-color var(--transition-speed);
+}
+
+.float-label label {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: var(--text-muted);
+  transition: all var(--transition-speed);
+  pointer-events: none;
+}
+
+.float-label input:focus,
+.float-label input:not(:placeholder-shown) {
+  border-color: var(--accent-primary);
+  outline: none;
+}
+
+.float-label input:focus + label,
+.float-label input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  background-color: white;
+  padding: 0 5px;
+  color: var(--accent-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-primary: #0f172a;
+    --background-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-light: rgba(71, 85, 105, 0.5);
+    --glass-effect: rgba(30, 41, 59, 0.7);
+  }
+  
+  .bento-item {
+    background-color: #1e293b;
+  }
+  
+  .float-label input:focus + label,
+  .float-label input:not(:placeholder-shown) + label {
+    background-color: var(--background-secondary);
+  }
+  
+  button {
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+  }
+}
